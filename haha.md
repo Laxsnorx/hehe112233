@@ -308,10 +308,14 @@ Step 1 — DNS: point domain to EC2
 1. Add A record: In your DNS provider, add an A record: yourdomain.com → EC2 public IP
 2. Add www A record: www.yourdomain.com → same EC2 IP
 3. Wait for propagation (instant on Cloudflare, up to a few minutes elsewhere)
+
+
 Step 2 — Open ports in AWS Security Group
 EC2 → Security Groups → Inbound rules → make sure these are open:
 Port 80 (HTTP) — Source: 0.0.0.0/0 ← needed for Certbot verification
 Port 443 (HTTPS) — Source: 0.0.0.0/0 ← (can restrict to Cloudflare later, see §3)
+
+
 Step 3 — Install Certbot & get SSL certificate
 
 
