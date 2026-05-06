@@ -117,14 +117,12 @@ Visit http://your-ec2-public-ip — you should see the Nginx welcome page.
 
 4. Install MySQL
 
-    sudo apt install mysql-server -y
-
-    sudo systemctl start mysql
-
-    sudo systemctl enable mysql
+        sudo apt install mysql-server -y
+        sudo systemctl start mysql
+        sudo systemctl enable mysql
 
 Run security setup:
-    sudo mysql_secure_installation
+        sudo mysql_secure_installation
 
 Follow the prompts:
 Set a root password
