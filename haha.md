@@ -381,11 +381,11 @@ Make sure it has TWO server blocks like this:
 
 
 # Block 1: redirect HTTP → HTTPS
-server {
-listen 80;
-server_name yourdomain.com www.yourdomain.com;
-return 301 https://$host$request_uri;
-}
+    server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    return 301 https://$host$request_uri;
+    }
 # Block 2: serve the site over HTTPS
 server {
 listen 443 ssl;
