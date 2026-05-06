@@ -93,52 +93,52 @@ Open git Bash and cd to downloads or where you downloaded your .pem file
 
 1. Connect to EC2
 
-ssh -i your-key.pem ubuntu@your-ec2-public-ip
+    ssh -i your-key.pem ubuntu@your-ec2-public-ip
 
 
 2. Update the System
 
-sudo apt update && sudo apt upgrade -y
+    sudo apt update && sudo apt upgrade -y
 
 
 3. Install Nginx
 
-sudo apt install nginx -y
+    sudo apt install nginx -y
 
-sudo systemctl start nginx
+    sudo systemctl start nginx
 
-sudo systemctl enable nginx
+    sudo systemctl enable nginx
 
 Verify:
 
-sudo systemctl status nginx
+    sudo systemctl status nginx
 
 Visit http://your-ec2-public-ip — you should see the Nginx welcome page.
 
 4. Install MySQL
 
-sudo apt install mysql-server -y
+    sudo apt install mysql-server -y
 
-sudo systemctl start mysql
+    sudo systemctl start mysql
 
-sudo systemctl enable mysql
+    sudo systemctl enable mysql
 
 Run security setup:
-sudo mysql_secure_installation
+    sudo mysql_secure_installation
 
 Follow the prompts:
 Set a root password
 
-Remove anonymous users → Yes
+    Remove anonymous users → Yes
 
-Disallow remote root login → Yes
+    Disallow remote root login → Yes
 
-Remove test database → Yes
+    Remove test database → Yes
 
-Reload privilege tables → Yes
+    Reload privilege tables → Yes
 
 Verify:
-sudo mysql -u root -p
+    sudo mysql -u root -p
 
 
 5. Open AWS Security Group Ports
@@ -165,7 +165,7 @@ Your IP only
 
 6. Install Git & Clone Re	po
 
-sudo apt install git -y
+    sudo apt install git -y
 
 Note: git config --global user.name and user.email are only required when committing code. You can skip them if you are only cloning/pulling on the server.
 Public repo:
@@ -184,87 +184,76 @@ ssh -T git@github.com
 
 # Clone
 
-git clone git@github.com:your-username/your-repo.git
+    git clone git@github.com:your-username/your-repo.git
 
 
 7. Install PHP & Composer
 
-sudo apt install php php-fpm php-mysql php-mbstring php-xml php-bcmath php-curl php-zip unzip -y
+    sudo apt install php php-fpm php-mysql php-mbstring php-xml php-bcmath php-curl php-zip unzip -y
 
 Check PHP version:
 
-php -v
+    php -v
 
 Install Composer:
 
-sudo apt install composer -y
+    sudo apt install composer -y
 
 
 8. Move Project & Configure Laravel
 
 Check your cloned folder name:
 
-ls ~
+    ls ~
 
 Move to web root (replace your-repo with actual folder name):
 
-sudo mv your-repo /var/www/your-repo
+    sudo mv your-repo /var/www/your-repo
 
 Example used in this guide: sudo mv itelect104_pub /var/www/itelect104
 
 Install Laravel dependencies:
 
-cd /var/www/itelect104
+    cd /var/www/itelect104
 
-sudo composer install
+    sudo composer install
 
 Set up environment file:
 
-sudo cp .env.example .env
+    sudo cp .env.example .env
 
-sudo nano .env
+    sudo nano .env
 
 Update these values:
 
 APP_NAME=itelect104
-
 APP_ENV=production
-
 APP_KEY=
-
 APP_DEBUG=false
-
 APP_URL=http://your-ec2-public-ip
 
 DB_CONNECTION=mysql
-
 DB_HOST=127.0.0.1
-
 DB_PORT=3306
-
 DB_DATABASE=itelect104
-
 DB_USERNAME=itelect104user
-
 DB_PASSWORD=yourpassword
 
 Generate app key:
 
-sudo php artisan key:generate
+    sudo php artisan key:generate
 
 Set permissions:
 
-sudo chown -R www-data:www-data /var/www/itelect104
-
-sudo chmod -R 755 /var/www/itelect104/storage
-
-sudo chmod -R 755 /var/www/itelect104/bootstrap/cache
+    sudo chown -R www-data:www-data /var/www/itelect104
+    sudo chmod -R 755 /var/www/itelect104/storage
+    sudo chmod -R 755 /var/www/itelect104/bootstrap/cache
 
 
 
 9. Configure Nginx for Laravel
 
-sudo nano /etc/nginx/sites-available/itelect104
+    sudo nano /etc/nginx/sites-available/itelect104
 
 Paste this config:
 
@@ -293,49 +282,43 @@ server {
 
 Enable the site:
 
-sudo ln -s /etc/nginx/sites-available/itelect104 /etc/nginx/sites-enabled/
+    sudo ln -s /etc/nginx/sites-available/itelect104 /etc/nginx/sites-enabled/
 
-sudo nginx -t
+    sudo nginx -t
 
-sudo systemctl reload nginx
+    sudo systemctl reload nginx
 
 
 10. Set Up MySQL Database & User
 
-sudo mysql
+    sudo mysql
 
-CREATE DATABASE itelect104;
-
-CREATE USER 'itelect104user'@'localhost' IDENTIFIED BY 'yourpassword';
-
-GRANT ALL PRIVILEGES ON itelect104.* TO 'itelect104user'@'localhost';
-
-FLUSH PRIVILEGES;
-
-EXIT;
+    CREATE DATABASE itelect104;
+    CREATE USER 'itelect104user'@'localhost' IDENTIFIED BY 'yourpassword';
+    GRANT ALL PRIVILEGES ON itelect104.* TO 'itelect104user'@'localhost';
+    FLUSH PRIVILEGES;
+    EXIT;
 
 Verify the user was created:
 
-sudo mysql
+    sudo mysql
 
-SELECT user, host FROM mysql.user;
+    SELECT user, host FROM mysql.user;
 
-EXIT;
+    EXIT;
 
 Test login:
 
-mysql -u itelect104user -p
+    mysql -u itelect104user -p
 
 
 11. Run Migrations
 
-cd /var/www/itelect104
+    cd /var/www/itelect104
 
-sudo php artisan config:clear
-
-sudo php artisan cache:clear
-
-sudo php artisan migrate
+    sudo php artisan config:clear
+    sudo php artisan cache:clear
+    sudo php artisan migrate
 
 
 
@@ -379,10 +362,10 @@ Port 443 (HTTPS) — Source: 0.0.0.0/0 ← (can restrict to Cloudflare later, se
 Step 3 — Install Certbot & get SSL certificate
 
 
-sudo apt install certbot python3-certbot-nginx -y
+    sudo apt install certbot python3-certbot-nginx -y
 
 
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+    sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 
 
 
