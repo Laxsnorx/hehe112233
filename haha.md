@@ -257,28 +257,28 @@ Set permissions:
 
 Paste this config:
 
-server {
-    listen 80;
-    server_name your-ec2-public-ip;
+    server {
+        listen 80;
+        server_name your-ec2-public-ip;
 
-    root /var/www/itelect104/public;
-    index index.php index.html;
+        root /var/www/itelect104/public;
+        index index.php index.html;
 
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            include fastcgi_params;
+        }
+
+        location ~ /\.ht {
+            deny all;
+        }
     }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
 
 Enable the site:
 
