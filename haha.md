@@ -1,6 +1,6 @@
 
 //////////////////bash script
-
+```
 #!/bin/bash
 set -e
 #  Edit these 
@@ -66,7 +66,7 @@ sudo apt install certbot python3-certbot-nginx -y
 sudo certbot --nginx -d ${DOMAIN} -d www.${DOMAIN} \--non-interactive --agree-tos -m ${EMAIL}
 sudo systemctl reload nginx
 
-
+```
 ---------------------------------------------------------------
 
 
