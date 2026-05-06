@@ -312,11 +312,11 @@ Test login:
 
 11. Run Migrations
 
-    cd /var/www/itelect104
+        cd /var/www/itelect104
 
-    sudo php artisan config:clear
-    sudo php artisan cache:clear
-    sudo php artisan migrate
+        sudo php artisan config:clear
+        sudo php artisan cache:clear
+        sudo php artisan migrate
 
 
 
@@ -374,7 +374,7 @@ Step 4 — Force HTTPS (required by instructor)
 Edit Nginx config so HTTP always redirects to HTTPS:
 
 
-sudo nano /etc/nginx/sites-available/laravel
+    sudo nano /etc/nginx/sites-available/laravel
 
 
 Make sure it has TWO server blocks like this:
