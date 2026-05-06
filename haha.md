@@ -313,13 +313,28 @@ EC2 → Security Groups → Inbound rules → make sure these are open:
 Port 80 (HTTP) — Source: 0.0.0.0/0 ← needed for Certbot verification
 Port 443 (HTTPS) — Source: 0.0.0.0/0 ← (can restrict to Cloudflare later, see §3)
 Step 3 — Install Certbot & get SSL certificate
+
+
 sudo apt install certbot python3-certbot-nginx -y
+
+
 sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+
+
+
 # Certbot will ask for your email and automatically edit your Nginx config
+
+
 Step 4 — Force HTTPS (required by instructor)
 Edit Nginx config so HTTP always redirects to HTTPS:
+
+
 sudo nano /etc/nginx/sites-available/laravel
+
+
 Make sure it has TWO server blocks like this:
+
+
 # Block 1: redirect HTTP → HTTPS
 server {
 listen 80;
